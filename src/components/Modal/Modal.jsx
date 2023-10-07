@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 export const Modal = ({ onClose, imageSrc }) => {
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [handleKeyDown]);
 
   useEffect(() => {
     return window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [handleKeyDown]);
 
   const handleKeyDown = e => {
     if (e.key === 'Escape') {
