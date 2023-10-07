@@ -1,22 +1,30 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 export const Modal = ({ onClose, imageSrc }) => {
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
+  const handleKeyDown = useCallback(
+    event => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
-  useEffect(() => {
-    return window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
-
-  const handleKeyDown = e => {
-    if (e.key === 'Escape') {
+  const handleBackdropClick = event => {
+    if (event.target === event.currentTarget) {
       onClose();
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
   return (
-    <div className="overlay open" onClick={onClose}>
+    <div className="overlay open" onClick={handleBackdropClick}>
       <div className="modal">
         <img src={imageSrc} alt="" />
       </div>

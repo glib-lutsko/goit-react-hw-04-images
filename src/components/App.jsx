@@ -23,6 +23,7 @@ export const App = () => {
     setShowModal(false);
     setSelectedImageSrc('');
   };
+
   const onSubmit = e => {
     setPhotos([]);
     setPage(1);
